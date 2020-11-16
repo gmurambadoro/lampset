@@ -2,26 +2,16 @@ import os
 import subprocess
 import sys
 
+from command import Command
 
-def exec_command(cmd: str, args: str = '') -> bool:
+
+def shell_exec(command: Command) -> bool:
     """Runs the os system command and returns the execution success"""
-    run_args = [cmd]
-
-    if args:
-        run_args.append(args)
-
-    res = subprocess.run(run_args, stdout=subprocess.PIPE)
-
-    return int(res.returncode) == 0
+    return int(os.system(str(command))) == 0
 
 
-def exec_command_with_output(cmd: str, args: str = '') -> str:
-    run_args = [cmd]
-
-    if args:
-        run_args.append(args)
-
-    _res = subprocess.run(run_args, subprocess.PIPE)
+def shell_exec_with_output(command: Command) -> str:
+    _res = subprocess.run(command.arguments(), subprocess.PIPE)
 
     if _res.returncode != 0:
         raise RuntimeError('E: Command Failed: ' + str(_res.stderr))
@@ -31,7 +21,7 @@ def exec_command_with_output(cmd: str, args: str = '') -> str:
 
 # upgrade the system
 def do_system_upgrade() -> bool:
-    return exec_command('sudo apt update && sudo apt upgrade -y')
+    return shell_exec(Command('sudo apt update && sudo apt upgrade -y'))
 
 
 # register ppas
