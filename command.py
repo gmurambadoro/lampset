@@ -1,3 +1,7 @@
+import os
+import subprocess
+
+
 class Command:
     """Simple class to represent a shell commands"""
 
@@ -18,7 +22,22 @@ class Command:
         return args
 
     def exec(self) -> bool:
-        pass
+        return int(os.system(str(self))) == 0
 
     def exec_with_output(self, suppress_error: bool = False) -> str:
-        pass
+        res = subprocess.run(self.arguments(), subprocess.PIPE)
+
+        if not suppress_error and res.returncode != 0:
+            raise RuntimeError(f"Error when running command {self}")
+
+        return str(res.stdout)
+
+    @classmethod
+    def run(cls, command: str, suppress_error: False) -> int:
+        _command = Command(command)
+        success = _command.exec()
+
+        if not success and not suppress_error:
+            raise RuntimeError(f'Error when running command {_command}')
+
+        return success
