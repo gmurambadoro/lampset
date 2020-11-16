@@ -1,4 +1,5 @@
 import sys
+from getpass import getpass
 
 from command import Command
 
@@ -42,6 +43,49 @@ try:
 
     # add the current user to the www-data group
     Command.run('sudo usermod -a -G www-data $USER', False)
+
+    # install wkhtmltopdf
+    Command.run('sudo apt install -y wkhtmltopdf', False)
+
+    # install composer
+    Command.run('bash composer-install.sh', False)
+    Command.run('sudo chmod +x composer.phar', False)
+    Command.run('sudo mv composer.phar /usr/local/bin/composer', False)
+    Command.run('composer --version', False)
+
+    # configure mysql
+    Command.run('sudo mysql_secure_installation', False)
+
+    msg = """
+    If you connect to MySQL via third party clients like Workbench and phpMyAdmin you might run into
+    authentication issues.
+    Do you want to fix the MySQL configuration to allow for clients like Workbench and phpMyAdmin to connect? (Y/n)  
+    """
+
+    yes = str(input(msg)).strip().lower() == 'y'
+
+    if yes:
+        username = str(input('MySQL Username (root): ')).strip()
+        password = str(getpass('Password: ')).strip()
+        confirm_password = str(getpass('Confirm Password: ')).strip()
+
+        while password != confirm_password:
+            print()
+            print('!! Passwords do not match. Please try again.')
+            print()
+            password = str(getpass('Password: ')).strip()
+            confirm_password = str(getpass('Confirm Password: ')).strip()
+
+        print()
+        print()
+        print(f"""
+            Please enter the following commands manually in the terminal:
+            mysql> ALTER USER '{username}'@'localhost' IDENTIFIED WITH mysql_native_password BY '{password}';
+            mysql> FLUSH PRIVILEGES;
+            mysql> quit
+            """)
+
+        Command.run('sudo mysql', True)
 
 except RuntimeError as e:
     print()
