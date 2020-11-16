@@ -43,6 +43,7 @@ try:
 
     # add the current user to the www-data group
     Command.run('sudo usermod -a -G www-data $USER', False)
+    Command.run('sudo usermod -a -G vboxsf $USER', False)
 
     # install wkhtmltopdf
     Command.run('sudo apt install -y wkhtmltopdf', False)
@@ -57,9 +58,9 @@ try:
     Command.run('sudo mysql_secure_installation', False)
 
     msg = """
-    If you connect to MySQL via third party clients like Workbench and phpMyAdmin you might run into
-    authentication issues.
-    Do you want to fix the MySQL configuration to allow for clients like Workbench and phpMyAdmin to connect? (Y/n)  
+If you connect to MySQL via third party clients like Workbench and phpMyAdmin you might run into
+authentication issues.
+Do you want to fix the MySQL configuration to allow for clients like Workbench and phpMyAdmin to connect? (Y/n):   
     """
 
     yes = str(input(msg)).strip().lower() == 'y'
@@ -79,10 +80,10 @@ try:
         print()
         print()
         print(f"""
-            Please enter the following commands manually in the terminal:
-            mysql> ALTER USER '{username}'@'localhost' IDENTIFIED WITH mysql_native_password BY '{password}';
-            mysql> FLUSH PRIVILEGES;
-            mysql> quit
+Please enter the following commands manually in the terminal:
+mysql> ALTER USER '{username}'@'localhost' IDENTIFIED WITH mysql_native_password BY '{password}';
+mysql> FLUSH PRIVILEGES;
+mysql> quit
             """)
 
         Command.run('sudo mysql', True)
