@@ -45,6 +45,9 @@ try:
     Command.run('sudo usermod -a -G www-data $USER', False)
     Command.run('sudo usermod -a -G vboxsf $USER', False)
 
+    # allow apache2 to have read/write access to virtualbox shared folders
+    Command.run('sudo usermod -a -G vboxsf www-data', False)
+
     # install wkhtmltopdf
     Command.run('sudo apt install -y wkhtmltopdf', False)
 
