@@ -13,7 +13,9 @@ try:
 
         sys.exit(1)
 
-    Command.run('sudo apt update && sudo apt upgrade -y', suppress_error=False)
+    Command.run('sudo apt update', suppress_error=False)
+    Command.run('sudo apt upgrade -y', suppress_error=False)
 
 except RuntimeError as e:
+    print()
     print(e)

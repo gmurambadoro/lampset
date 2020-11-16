@@ -6,9 +6,9 @@ class Command:
     """Simple class to represent a shell commands"""
 
     def __init__(self, name: str):
-        args = name.split(' ')
-        self._name = args[0]
-        self._args = args[1] or None
+        args, *rest = name.split(' ')
+        self._name = str(args or '')
+        self._args = " ".join(rest or [])
 
     def __str__(self) -> str:
         return " ".join(self.arguments())
