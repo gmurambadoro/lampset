@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 import sys
 from getpass import getpass
 
