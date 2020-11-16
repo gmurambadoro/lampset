@@ -21,8 +21,13 @@ class Command:
 
         return args
 
-    def exec(self) -> bool:
-        return int(os.system(str(self))) == 0
+    def exec(self, suppress_error=False) -> bool:
+        success = os.system(str(self)) == 0
+
+        if not success and not suppress_error:
+            raise RuntimeError(f"Error when running command {self}")
+
+        return success
 
     def exec_with_output(self, suppress_error: bool = False) -> str:
         res = subprocess.run(self.arguments(), subprocess.PIPE)
@@ -35,9 +40,6 @@ class Command:
     @classmethod
     def run(cls, command: str, suppress_error: False) -> int:
         _command = Command(command)
-        success = _command.exec()
+        return _command.exec(suppress_error=suppress_error)
 
-        if not success and not suppress_error:
-            raise RuntimeError(f'Error when running command {_command}')
 
-        return success
