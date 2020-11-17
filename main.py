@@ -73,10 +73,10 @@ try:
 
     # add the current user to the www-data group
     Command.run('sudo usermod -a -G www-data $USER', False)
-    Command.run('sudo usermod -a -G vboxsf $USER', False)
+    Command.run('sudo usermod -a -G vboxsf $USER', True)
 
     # allow apache2 to have read/write access to virtualbox shared folders
-    Command.run('sudo usermod -a -G vboxsf www-data', False)
+    Command.run('sudo usermod -a -G vboxsf www-data', True)
 
     print("[OK] Permissions were setup successfully.")
 
