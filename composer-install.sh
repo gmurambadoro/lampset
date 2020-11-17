@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # @see https://getcomposer.org/doc/faqs/how-to-install-composer-programmatically.md
 

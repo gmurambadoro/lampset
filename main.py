@@ -4,7 +4,7 @@ from getpass import getpass
 
 from command import Command
 
-PHP_VERSIONS = ['5.6', '7.1', '7.2', '7.3', '7.4']
+PHP_VERSIONS = ['php5.6', 'php7.1', 'php7.2', 'php7.3', 'php7.4']
 
 
 def heading(title: str) -> None:
@@ -46,7 +46,7 @@ try:
     for ver in PHP_VERSIONS:
         php_extensions = '{PHP_VER} {PHP_VER}-cli {PHP_VER}-common {PHP_VER}-curl {PHP_VER}-gd {PHP_VER}-mbstring ' \
                          '{PHP_VER}-zip {PHP_VER}-xml {PHP_VER}-sqlite3 {PHP_VER}-mysql {PHP_VER}-apcu ' \
-                         '{PHP_VER}-fpm libapache2-mod-{PHP_VER}'.replace('{PHP_VER}', 'php' + ver)
+                         '{PHP_VER}-fpm libapache2-mod-{PHP_VER}'.replace('{PHP_VER}', ver)
 
         Command.run('sudo apt install -y ' + php_extensions, False)
 
@@ -90,6 +90,14 @@ try:
     Command.run('sudo mv composer.phar /usr/local/bin/composer', False)
     Command.run('composer --version', False)
 
+    heading('SYMFONY')
+
+    Command.run('bash symfony-install.sh', False)
+    Command.run('sudo chmod +x "/home/${USER}/.symfony/bin/symfony"', False)
+    Command.run('sudo mv "/home/${USER}/.symfony/bin/symfony" /usr/local/bin/symfony', False)
+    Command.run('sudo rm -rf "/home/${USER}/.symfony"', False)
+    Command.run('symfony -V', False)
+
     heading("Configuring MySQL")
 
     res = input('Do you want to secure your MySQL installation by running `mysql_secure_installation`? (Y/n): ')
@@ -129,14 +137,16 @@ mysql> quit
 
         Command.run('sudo mysql', True)
 
-    heading("Service Check")
+    heading("Versions")
 
     for ver in PHP_VERSIONS:
-        Command.run('sudo systemctl status %s-fpm' % ver, False)
+        Command.run('%s --version' % ver, False)
 
     Command.run('php --version', True)
-    Command.run('systemctl status apache2', True)
-    Command.run('systemctl status mysql', True)
+    Command.run('apache2 --version', True)
+    Command.run('mysql --version', True)
+    Command.run('composer --version', True)
+    Command.run('symfony -V', True)
     Command.run('wkhtmltopdf --version', True)
 
     print()
