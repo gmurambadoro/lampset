@@ -78,6 +78,8 @@ try:
     # allow apache2 to have read/write access to virtualbox shared folders
     Command.run('sudo usermod -a -G vboxsf www-data', False)
 
+    print("[OK] Permissions were setup successfully.")
+
     heading("WKHTMLTOPDF")
 
     # install wkhtmltopdf
@@ -93,21 +95,33 @@ try:
     heading('SYMFONY')
 
     Command.run('bash symfony-install.sh', False)
-    Command.run('sudo chmod +x "/home/${USER}/.symfony/bin/symfony"', False)
+    Command.run('chmod +x "/home/${USER}/.symfony/bin/symfony"', False)
+
+    print("Moving Symfony binary to /usr/local/bin for system wide access...")
+
     Command.run('sudo mv "/home/${USER}/.symfony/bin/symfony" /usr/local/bin/symfony', False)
     Command.run('sudo rm -rf "/home/${USER}/.symfony"', False)
     Command.run('symfony -V', False)
 
     heading("Configuring MySQL")
 
-    res = input('Do you want to secure your MySQL installation by running `mysql_secure_installation`? (Y/n): ')
+    res = input("""
+Do you want to secure your MySQL installation by running `mysql_secure_installation`?
+
+== NB: If already run, please select `N` to skip this part ==
+
+Do yo want want to run `mysql_secure_installation` now (Y/n): 
+
+""")
 
     if 'y' == str(res or '').strip().lower():
         Command.run('sudo mysql_secure_installation', False)
 
     msg = """
-If you frequently connect to MySQL via third party clients like Workbench and phpMyAdmin you might run into
-`MySQL Access Denied` issues.
+If you frequently connect to MySQL via third party clients like Workbench and phpMyAdmin you might run 
+into `MySQL Access Denied` issues. 
+
+== NB: If already run, please select `N` to skip this part ==
 
 Do you want to fix the configuration file to allow for clients like Workbench and phpMyAdmin 
 to connect to MySQL? (Y/n):  """
@@ -137,18 +151,25 @@ mysql> quit
 
         Command.run('sudo mysql', True)
 
-    heading("Versions")
+    heading("PHP Versions")
 
     for ver in PHP_VERSIONS:
         Command.run('%s --version' % ver, False)
 
+    heading("Default PHP Version")
+
     Command.run('php --version', True)
+
+    heading("Software Versions")
+
     Command.run('apache2 --version', True)
     Command.run('mysql --version', True)
     Command.run('composer --version', True)
     Command.run('symfony -V', True)
     Command.run('wkhtmltopdf --version', True)
 
+    print()
+    heading("***")
     print()
     print("[OK] Thank you for your patience. The setup is now complete.")
 except RuntimeError as e:
