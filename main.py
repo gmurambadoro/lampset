@@ -4,6 +4,8 @@ from getpass import getpass
 
 from command import Command
 
+PHP_VERSIONS = ['5.6', '7.1', '7.2', '7.3', '7.4']
+
 
 def heading(title: str) -> None:
     print()
@@ -41,7 +43,7 @@ try:
     heading("Installing Multiple PHP Versions")
 
     # install multiple php versions
-    for ver in ['5.6', '7.1', '7.2', '7.3', '7.4']:
+    for ver in PHP_VERSIONS:
         php_extensions = '{PHP_VER} {PHP_VER}-cli {PHP_VER}-common {PHP_VER}-curl {PHP_VER}-gd {PHP_VER}-mbstring ' \
                          '{PHP_VER}-zip {PHP_VER}-xml {PHP_VER}-sqlite3 {PHP_VER}-mysql {PHP_VER}-apcu ' \
                          '{PHP_VER}-fpm libapache2-mod-{PHP_VER}'.replace('{PHP_VER}', 'php' + ver)
@@ -57,6 +59,14 @@ try:
     Command.run('sudo a2dismod php5.6', False)
     Command.run('sudo systemctl restart apache2', False)
     Command.run('sudo a2enmod php7.4', False)
+    Command.run('sudo systemctl restart apache2', False)
+
+    heading('PHP FPM')
+
+    for ver in PHP_VERSIONS:
+        Command.run('sudo systemctl start %s-fpm' % ver, False)
+
+    Command.run('sudo a2enmod actions fcgid alias proxy_fcgi rewrite', False)
     Command.run('sudo systemctl restart apache2', False)
 
     heading("Setting Up User Permissions")
@@ -118,6 +128,16 @@ mysql> quit
             """)
 
         Command.run('sudo mysql', True)
+
+    heading("Service Check")
+
+    for ver in PHP_VERSIONS:
+        Command.run('sudo systemctl status %s-fpm' % ver, False)
+
+    Command.run('php --version', True)
+    Command.run('systemctl status apache2', True)
+    Command.run('systemctl status mysql', True)
+    Command.run('wkhtmltopdf --version', True)
 
     print()
     print("[OK] Thank you for your patience. The setup is now complete.")
