@@ -172,6 +172,7 @@ mysql> quit
     heading("***")
     print()
     print("[OK] Thank you for your patience. The setup is now complete.")
+    print()
 except RuntimeError as e:
     print()
     print(e)
