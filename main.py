@@ -87,14 +87,16 @@ try:
 
     heading("COMPOSER")
 
-    Command.run('bash composer-install.sh', False)
-    Command.run('sudo chmod +x composer.phar', False)
+    # @see https://getcomposer.org/doc/faqs/how-to-install-composer-programmatically.md
+    Command.run('wget https://raw.githubusercontent.com/composer/getcomposer.org'
+                '/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer -O - -q | php -- --quiet', False)
+    Command.run('chmod +x composer.phar', False)
     Command.run('sudo mv composer.phar /usr/local/bin/composer', False)
     Command.run('composer --version', False)
 
     heading('SYMFONY')
 
-    Command.run('bash symfony-install.sh', False)
+    Command.run('curl -sS https://get.symfony.com/cli/installer | bash', False)
     Command.run('chmod +x "/home/${USER}/.symfony/bin/symfony"', False)
 
     print("Moving Symfony binary to /usr/local/bin for system wide access...")
@@ -110,9 +112,7 @@ Do you want to secure your MySQL installation by running `mysql_secure_installat
 
 == NB: If already run, please select `N` to skip this part ==
 
-Do yo want want to run `mysql_secure_installation` now (Y/n): 
-
-""")
+Do yo want want to run `mysql_secure_installation` now (Y/n): """)
 
     if 'y' == str(res or '').strip().lower():
         Command.run('sudo mysql_secure_installation', False)
