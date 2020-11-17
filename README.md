@@ -13,7 +13,7 @@
 ## Requirements
 
 - Debian-based Linux distribution e.g. [Ubuntu Server](https://ubuntu.com/download/server).
-- Latest version of [git](https://git-scm.com/)
+- [Git](https://git-scm.com/) - latest version.
 
 # Usage
 
