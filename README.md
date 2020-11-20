@@ -14,25 +14,12 @@
 
 - Debian-based Linux distribution e.g. [Ubuntu Server](https://ubuntu.com/download/server).
 - [Git](https://git-scm.com/) - latest version.
+- **Python 3.8** or greater
 
 # Usage
 
-- [Download](https://github.com/gmurambadoro/lapset/releases) the latest version of [*lapset*](https://github.com/gmurambadoro/lapset/releases) from our 
-[releases](https://github.com/gmurambadoro/lapset/releases) page.
-- Rename the downloaded file to *lapset* and make it executable.
-- Run the executable file and boom, the setup is in progress.
-    
-    ```
-    $ mv lampset-* lapset
-    $ chmod +x lampset
-    $ ./lapset
-    ```
-
-## Packaging
-
-If you are going to build this package into a single binary, I recommend you use 
-the [PyInstaller](https://pyinstaller.readthedocs.io/en/stable/). I found it to be simple and easy to use.
-
 ```
-$ pyinstaller -onefile main.py
+$ git clone https://github.com/gmurambadoro/lampset.git
+$ cd lampset
+$ python3 lampset.py
 ```
