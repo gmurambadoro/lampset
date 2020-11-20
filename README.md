@@ -1,4 +1,4 @@
-# Linux Apache MySQL & PHP (LAMP) Setup
+# Linux, Apache, MySQL & PHP (LAMP) Setup
 
 **lampset** is a command line script written in Python that will allow you to setup a LAMP stack on a freshly installed Ubuntu-based virtual machine.
 
