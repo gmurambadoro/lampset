@@ -1,6 +1,6 @@
-# Linux Apache Setup (lapset)
+# Linux Apache MySQL & PHP (LAMP) Setup
 
-**lapset** is a command line script written in Python that will allow you to setup a LAMP stack on a freshly installed Ubuntu-based virtual machine.
+**lampset** is a command line script written in Python that will allow you to setup a LAMP stack on a freshly installed Ubuntu-based virtual machine.
 
 ## Features
 
@@ -23,8 +23,8 @@
 - Run the executable file and boom, the setup is in progress.
     
     ```
-    $ mv lapset-* lapset
-    $ chmod +x lapset
+    $ mv lampset-* lapset
+    $ chmod +x lampset
     $ ./lapset
     ```
 
