@@ -60,7 +60,7 @@ After the setup is complete, I recommend you install my other package called [`l
 
 ```
 $ cd ~
-$ git clone git@github.com:gmurambadoro/lampset-vhost-add.git
+$ git clone https://github.com/gmurambadoro/lampset-vhost-add.git
 $ cd lampset-vhost-add/
 $ chmod +x lampset-vhost-add
 $ sudo mv lampset-vhost-add /usr/local/bin/vhost-add
