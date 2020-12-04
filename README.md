@@ -49,7 +49,7 @@ To setup the LAMP server simply clone this repository and execute the `lampset.p
 
 ```
 $ cd /tmp/
-$ git clone git@github.com:gmurambadoro/lampset.git
+$ git clone https://github.com/gmurambadoro/lampset.git
 $ cd lampset/
 $ python3 lampset.py
 ```
