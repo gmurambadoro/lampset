@@ -1,8 +1,8 @@
-# Introduction
+# Linux, Apache, PHP & MySQL Setup (lampset)
 
 **lampset** is a LAMP stack provisioning script specifically targeting Ubuntu-based distributions, for example **Linux Mint**, **Ubuntu Server** and **Ubuntu Server on VirtualBox**.
 
-# Features
+## Features
 
 - (L)inux: Ubuntu-based distribution e.g. Linux Mint, Ubuntu Server and Ubuntu Server on VirtualBox
 - (A)pache2 - latest version
@@ -16,18 +16,18 @@ For general-purpose web development support, the following packages are also ins
 - [Symfony CLI](https://symfony.com/download)
 - [`wkhtmltopdf`](https://wkhtmltopdf.org/) for conversion of HTML to PDF files.
 
-# Brief History
+## Brief History
 
 As a web and back end developer I always had a need for an LAMP stack environment that I can use for developing different web-based applications. The major requirement was that the environment needed to support multiple versions of PHP at the same time - a problem solved by [PHP FPM](https://www.php.net/manual/en/install.fpm.php).
 
 The **lampset** binary is the bringing together of all of the knowledge acquired from the Internet on how to bring this environment up and running in no time, especially after a fresh installation of an operating system.
 
-# Supported Platforms
+## Supported Platforms
 
 - Ubuntu-based Linux operating systems e.g. [Linux Mint](https://linuxmint.com) and [Ubuntu Server](https://ubuntu.com/download/server). 
 - All other operating systems (e.g. Mac, Windows) are supported via [VirtualBox](https://virtualbox.org). The only requirement is that the guest operating system needs to be [Ubuntu Server](https://ubuntu.com/download/server).
 
-# How it works
+## How it works
 
 **lampset** is an encapsulation of various `bash` commands and concepts that are applied when setting up a LAMP stack on Ubuntu Server or its variants.
 
@@ -43,7 +43,7 @@ The following are more or less the steps that are taken during the provisioning 
 - Fix `mysql` configuration so that clients like WorkBench can connect to it without running into `Access Denied/Permission" issues.
 - Install some opinionated packages that I always need namely [Composer](https://getcomposer.org), [Symfony CLI](https://symfony.com/download) and [`wkhtmltopdf`](https://wkhtmltopdf.org/).
 
-# Installation
+## Installation
 
 To setup the LAMP server simply clone this repository and execute the `lampset.py` file. In this example I have cloned into the `/tmp/` directory because this script should only be run once. The system will delete the contents of `/tmp/` on next boot. 
 
@@ -54,7 +54,7 @@ $ cd lampset/
 $ python3 lampset.py
 ```
 
-# Post Installation
+## Post Installation
 
 After the setup is complete, I recommend you install my other package called [`lampset-vhost-add`](https://github.com/gmurambadoro/lampset-vhost-add). This will allow you to easily add virtual hosts for your various projects and at the same time specify the PHP versions these need to run on.
 
