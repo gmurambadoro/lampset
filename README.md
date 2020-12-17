@@ -14,7 +14,6 @@ For general-purpose web development support, the following packages are also ins
 
 - [Composer version 2](https://getcomposer.org/)
 - [Symfony CLI](https://symfony.com/download)
-- [`wkhtmltopdf`](https://wkhtmltopdf.org/) for conversion of HTML to PDF files.
 
 ## Brief History
 
@@ -41,7 +40,7 @@ The following are more or less the steps that are taken during the provisioning 
 - Configure the default PHP version to be used by `apache2`.
 - Run `mysql_secure_installation` to set up root account details and default configuration of MySQL server.
 - Fix `mysql` configuration so that clients like WorkBench can connect to it without running into `Access Denied/Permission" issues.
-- Install some opinionated packages that I always need namely [Composer](https://getcomposer.org), [Symfony CLI](https://symfony.com/download) and [`wkhtmltopdf`](https://wkhtmltopdf.org/).
+- Install some opinionated packages that I always need namely [Composer](https://getcomposer.org) and [Symfony CLI](https://symfony.com/download).
 
 ## Installation
 
