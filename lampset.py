@@ -80,11 +80,6 @@ try:
 
     print("[OK] Permissions were setup successfully.")
 
-    heading("WKHTMLTOPDF")
-
-    # install wkhtmltopdf
-    Command.run('sudo apt install -y wkhtmltopdf', False)
-
     heading("COMPOSER")
 
     # @see https://getcomposer.org/doc/faqs/how-to-install-composer-programmatically.md
@@ -166,7 +161,6 @@ mysql> quit
     Command.run('mysql --version', True)
     Command.run('composer --version', True)
     Command.run('symfony -V', True)
-    Command.run('wkhtmltopdf --version', True)
 
     print()
     heading("***")
