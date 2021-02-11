@@ -101,10 +101,11 @@ try:
     Command.run('symfony -V', False)
 
     print("LAMPSET VHOST-ADD")
+    Command.run('rm -rf /tmp/lampset-vhost-add', True)
     Command.run('git clone https://github.com/gmurambadoro/lampset-vhost-add.git /tmp/lampset-vhost-add', False)
     Command.run('chmod +x /tmp/lampset-vhost-add/lampset-vhost-add.py', False)
-    Command.run('sudo ln -s /tmp/lampset-vhost-add/lampset-vhost-add.py /usr/local/bin/vhost-add', False)
-    Command.run('vhost-add --version', False)
+    Command.run('sudo ln -sf /tmp/lampset-vhost-add/lampset-vhost-add.py /usr/local/bin/vhost-add', False)
+    Command.run('vhost-add --help', False)
 
     heading("Configuring MySQL")
 
