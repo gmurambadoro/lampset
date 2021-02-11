@@ -4,10 +4,10 @@
 
 ## Features
 
-- (L)inux: Ubuntu-based distribution e.g. Linux Mint, Ubuntu Server and Ubuntu Server on VirtualBox
-- (A)pache2 - latest version
-- (M)ySQL version 5.7
-- (P)HP versions **php5.6**, **php7** and **php8.0**.
+- (**L**)inux: Ubuntu-based distribution e.g. Linux Mint, Ubuntu Server and Ubuntu Server on VirtualBox
+- (**A**)pache2 - latest version
+- (**M**)ySQL version 5.7
+- (**P**)HP versions **php5.6**, **php7** and **php8.0**.
 	- PHP-FPM allows you to run multiple sites running under different PHP versions at the same time.
 
 For general-purpose web development support, the following packages are also installed:
@@ -44,7 +44,7 @@ The following are more or less the steps that are taken during the provisioning 
 
 ## Installation
 
-To setup the LAMP server simply clone this repository and execute the `lampset.py` file. In this example I have cloned into the `/tmp/` directory because this script should only be run once. The system will delete the contents of `/tmp/` on next boot. 
+To set up the LAMP server simply clone this repository and execute the `lampset.py` file. In this example I have cloned into the `/tmp/` directory because this script should only be run once. The system will delete the contents of `/tmp/` on next boot. 
 
 ```
 $ cd /tmp/
@@ -55,14 +55,12 @@ $ python3 lampset.py
 
 ## Post Installation
 
-After the setup is complete, I recommend you install my other package called [`lampset-vhost-add`](https://github.com/gmurambadoro/lampset-vhost-add). This will allow you to easily add virtual hosts for your various projects and at the same time specify the PHP versions these need to run on.
+```bash
+mysql --version
+symfony --version
+composer --version
+vhost-add --help
+```
 
-```
-$ cd ~
-$ git clone https://github.com/gmurambadoro/lampset-vhost-add.git
-$ cd lampset-vhost-add/
-$ chmod +x lampset-vhost-add
-$ sudo mv lampset-vhost-add /usr/local/bin/vhost-add
-$ vhost-add --help
-$ vhost-add --interactive
-```
+**NB:** The `vhost-add` command allows you to easily add virtual hosts to your web server. For more information visit
+my other repository at [`lampset-vhost-add`](https://github.com/gmurambadoro/lampset-vhost-add) on GitHub.
