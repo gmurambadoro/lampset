@@ -104,7 +104,7 @@ try:
     Command.run('rm -rf /tmp/lampset-vhost-add', True)
     Command.run('git clone https://github.com/gmurambadoro/lampset-vhost-add.git /tmp/lampset-vhost-add', False)
     Command.run('chmod +x /tmp/lampset-vhost-add/lampset-vhost-add.py', False)
-    Command.run('sudo ln -sf /tmp/lampset-vhost-add/lampset-vhost-add.py /usr/local/bin/vhost-add', False)
+    Command.run('sudo mv --force /tmp/lampset-vhost-add/lampset-vhost-add.py /usr/local/bin/vhost-add', False)
     Command.run('vhost-add --help', False)
 
     heading("Configuring MySQL")
