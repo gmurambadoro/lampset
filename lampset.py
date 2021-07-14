@@ -4,7 +4,14 @@ from getpass import getpass
 
 from command import Command
 
-PHP_VERSIONS = ['php5.6', 'php7.1', 'php7.2', 'php7.3', 'php7.4', 'php8.0']
+PHP_VERSIONS = [
+#     'php5.6', 
+#     'php7.1', 
+    'php7.2', 
+#     'php7.3',
+    'php7.4', 
+    'php8.0'
+]
 
 
 def heading(title: str) -> None:
