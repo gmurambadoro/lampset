@@ -63,7 +63,7 @@ try:
     heading("Configuring Default PHP Version for Apache")
 
     # set default apache php to 7.4
-    Command.run('sudo a2dismod php5.6', False)
+    Command.run('sudo a2dismod php7.2', False)
     Command.run('sudo systemctl restart apache2', False)
     Command.run('sudo a2enmod php7.4', False)
     Command.run('sudo systemctl restart apache2', False)
