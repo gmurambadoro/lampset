@@ -38,7 +38,7 @@ try:
 
     # register required PPAs
     for ppa in ['ppa:ondrej/apache2', 'ppa:ondrej/php']:
-        Command.run(f'sudo add-apt-repository {ppa}', False)
+        Command.run(f'sudo add-apt-repository {ppa} -y', False)
 
     Command.run('sudo apt update -y', False)
 
