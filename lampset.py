@@ -10,7 +10,8 @@ PHP_VERSIONS = [
     'php7.2', 
 #     'php7.3',
     'php7.4', 
-    'php8.0'
+    'php8.0',
+    'php8.1'
 ]
 
 
