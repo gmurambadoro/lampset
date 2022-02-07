@@ -97,7 +97,7 @@ try:
     heading('SYMFONY')
 
     Command.run("echo 'deb [trusted=yes] https://repo.symfony.com/apt/ /' | sudo tee /etc/apt/sources.list.d/symfony-cli.list", False)
-    Command.run("sudo apt update -y && sudo apt install symfony-cli -y")
+    Command.run("sudo apt update -y && sudo apt install symfony-cli -y", False)
     Command.run('symfony -V', False)
 
     print("LAMPSET VHOST-ADD")
