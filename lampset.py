@@ -11,7 +11,7 @@ PHP_VERSIONS = [
     'php7.2',     
 ]
 
-PHP_DEFAULT_VERSION = PHP_VERSIONS[:-1]
+PHP_DEFAULT_VERSION = PHP_VERSIONS[0]
 
 
 def heading(title: str) -> None:
