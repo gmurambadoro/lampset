@@ -5,14 +5,13 @@ from getpass import getpass
 from command import Command
 
 PHP_VERSIONS = [
-#     'php5.6', 
-#     'php7.1', 
-    'php7.2', 
-#     'php7.3',
-    'php7.4', 
+    'php8.1',
     'php8.0',
-    'php8.1'
+    'php7.4', 
+    'php7.2',     
 ]
+
+PHP_DEFAULT_VERSION = PHP_VERSIONS[:-1]
 
 
 def heading(title: str) -> None:
@@ -63,10 +62,8 @@ try:
 
     heading("Configuring Default PHP Version for Apache")
 
-    # set default apache php to 7.4
-    Command.run('sudo a2dismod php7.2', False)
-    Command.run('sudo systemctl restart apache2', False)
-    Command.run('sudo a2enmod php7.4', False)
+    # set default apache php to latest php version
+    Command.run('sudo a2enmod ' + PHP_DEFAULT_VERSION, True)
     Command.run('sudo systemctl restart apache2', False)
 
     heading('PHP FPM')
@@ -99,13 +96,8 @@ try:
 
     heading('SYMFONY')
 
-    Command.run('curl -sS https://get.symfony.com/cli/installer | bash', False)
-    Command.run('chmod +x "/home/${USER}/.symfony/bin/symfony"', False)
-
-    print("Moving Symfony binary to /usr/local/bin for system wide access...")
-
-    Command.run('sudo mv "/home/${USER}/.symfony/bin/symfony" /usr/local/bin/symfony', False)
-    Command.run('sudo rm -rf "/home/${USER}/.symfony"', False)
+    Command.run("echo 'deb [trusted=yes] https://repo.symfony.com/apt/ /' | sudo tee /etc/apt/sources.list.d/symfony-cli.list", False)
+    Command.run("sudo apt update -y && sudo apt install symfony-cli -y")
     Command.run('symfony -V', False)
 
     print("LAMPSET VHOST-ADD")
