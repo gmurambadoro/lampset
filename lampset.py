@@ -44,7 +44,7 @@ try:
 
     heading("Installing Apache and MySQL")
 
-    Command.run('sudo apt install -y curl apache2 libapache2-mod-fcgid', False)
+    Command.run('sudo apt install -y curl apache2 libapache2-mod-fcgid zip unzip', False)
     Command.run('sudo apt install -y mysql-server mysql-client', False)
 
     heading("Installing Multiple PHP Versions")
@@ -53,7 +53,7 @@ try:
     for ver in PHP_VERSIONS:
         php_extensions = '{PHP_VER} {PHP_VER}-cli {PHP_VER}-common {PHP_VER}-curl {PHP_VER}-gd {PHP_VER}-mbstring ' \
                          '{PHP_VER}-zip {PHP_VER}-xml {PHP_VER}-sqlite3 {PHP_VER}-mysql {PHP_VER}-apcu ' \
-                         '{PHP_VER}-fpm libapache2-mod-{PHP_VER}'.replace('{PHP_VER}', ver)
+                         '{PHP_VER}-fpm libapache2-mod-{PHP_VER} {PHP_VER}-intl {PHP_VER}-bcmath'.replace('{PHP_VER}', ver)
 
         Command.run('sudo apt install -y ' + php_extensions, False)
 
@@ -153,6 +153,13 @@ mysql> quit
 
         Command.run('sudo mysql', True)
 
+    heading('Node JS LTS')
+    Command.run("curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -", False)
+    Command.run("sudo apt-get install -y nodejs", False)
+    Command.run("sudo npm install -g npm@latest", False)
+    Command.run("sudo npm install -g maildev", False) # https://www.npmjs.com/package/maildev
+
+
     heading("PHP Versions")
 
     for ver in PHP_VERSIONS:
@@ -168,6 +175,8 @@ mysql> quit
     Command.run('mysql --version', True)
     Command.run('composer --version', True)
     Command.run('symfony -V', True)
+    Command.run('node -v', True)
+    Command.run('npm -v', True)
 
     print()
     heading("***")
