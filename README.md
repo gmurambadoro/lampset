@@ -64,3 +64,22 @@ vhost-add --help
 
 **NB:** The `vhost-add` command allows you to easily add virtual hosts to your web server. For more information visit
 my other repository at [`lampset-vhost-add`](https://github.com/gmurambadoro/lampset-vhost-add) on GitHub.
+
+
+## Additional Setup
+
+```
+#!/usr/bin/bash
+
+## run the below command in the Host Operating system
+# VBoxManage setextradata "SystemDev" VBoxInternal2/SharedFoldersEnableSymlinksCreate/SystemDev 1
+
+# ensure Guest Addions have been inserted
+sudo mkdir -p /media/cdrom
+sudo mount /dev/cdrom /media/cdrom
+sudo apt update
+sudo apt-get install -y build-essential linux-headers-`uname -r`
+sudo /media/cdrom/./VBoxLinuxAdditions.run
+sudo reboot
+
+```
