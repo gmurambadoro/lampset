@@ -154,7 +154,7 @@ mysql> quit
         Command.run('sudo mysql', True)
 
     heading('Node JS LTS')
-    Command.run("curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -", False)
+    Command.run("curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -", False)
     Command.run("sudo apt-get install -y nodejs", False)
     Command.run("sudo npm install -g npm@latest", False)
     Command.run("sudo npm install -g maildev", False) # https://www.npmjs.com/package/maildev
