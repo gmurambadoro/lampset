@@ -6,8 +6,8 @@
 
 - (**L**)inux: Ubuntu-based distribution e.g. Linux Mint, Ubuntu Server and Ubuntu Server on VirtualBox
 - (**A**)pache2 - latest version
-- (**M**)ySQL version 5.7
-- (**P**)HP versions **php5.6**, **php7** and **php8.0**.
+- (**M**)ySQL version 8
+- (**P**)HP versions **php7**, **php8.0** and **php8.1**.
 	- PHP-FPM allows you to run multiple sites running under different PHP versions at the same time.
 
 For general-purpose web development support, the following packages are also installed:
@@ -35,7 +35,7 @@ The following are more or less the steps that are taken during the provisioning 
 - Perform a system upgrade to ensure that every package is up to date.
 - Register *ppa:ondrej/php* and *ppa:ondrej/apache2* Personal Package Archives (PPAs) that will act as official repositories for PHP and Apache2 respectively.
 - Install Apache, MySQL and support modules.
-- Install PHP versions **php5.6**, **php7.1**, **php7.2**, **php7.3**, **php7.4** and **php8.0**.
+- Install PHP versions **php7.2**, **php7.4**, **php8.0** and **php8.0**.
 - For each PHP version install various extension modules that are commonly used in a web development environment but not in the core package. Additionally install the respective PHP-FPM module as well.
 - Configure the default PHP version to be used by `apache2`.
 - Run `mysql_secure_installation` to set up root account details and default configuration of MySQL server.
