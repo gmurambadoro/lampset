@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import sys
 from getpass import getpass
+import subprocess
 
 from command import Command
 
@@ -10,6 +11,8 @@ PHP_VERSIONS = [
     'php7.4', 
     'php7.2',     
 ]
+
+OS_LSB_DESCRIPTION = "Ubuntu 20.04 LTS"
 
 PHP_DEFAULT_VERSION = PHP_VERSIONS[0]
 
@@ -26,6 +29,13 @@ try:
         print(f'E: Your `{sys.platform}` platform is not supported. At the moment we support only `linux` which is '
               f'found in Ubuntu-based Linux distributions.')
 
+        sys.exit(1)
+
+    result = subprocess.run(['lsb_release', '-d'], stdout=subprocess.PIPE)
+    description = result.stdout.decode(encoding='utf-8').strip().replace("Description:", "").strip()
+
+    if OS_LSB_DESCRIPTION not in description:
+        print(f"E: Unsupported Platform.\nExpecting `{OS_LSB_DESCRIPTION}` but found `{description}`")
         sys.exit(1)
 
     heading("System Upgrade")
