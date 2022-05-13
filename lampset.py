@@ -141,8 +141,10 @@ try:
     try:
         Command.run("sudo mysql", False)
     except:
-        print("It seems like you already have set the root password. Enter the root password below:")
-        Command.run("mysql -uroot -p", False)
+        print("")
+        print("** It seems like you already have set the root password.")
+        print("")
+        # Command.run("mysql -uroot -p", False)
 
     res = input("""
 Do you want to secure your MySQL installation by running `mysql_secure_installation`?
