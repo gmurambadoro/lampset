@@ -3,6 +3,8 @@ import sys
 from getpass import getpass
 import subprocess
 
+from click import command
+
 from command import Command
 
 PHP_VERSIONS = [
@@ -136,7 +138,11 @@ try:
     mysql> FLUSH PRIVILEGES;
     mysql> quit;
     """)
-    Command.run("sudo mysql", True)
+    try:
+        Command.run("sudo mysql", False)
+    except:
+        print("It seems like you already have set the root password. Enter the root password below:")
+        command.run("mysql -uroot -p", False)
 
     res = input("""
 Do you want to secure your MySQL installation by running `mysql_secure_installation`?
