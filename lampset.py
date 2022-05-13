@@ -3,6 +3,8 @@ import sys
 from getpass import getpass
 import subprocess
 
+from click import command
+
 from command import Command
 
 PHP_VERSIONS = [
@@ -12,7 +14,7 @@ PHP_VERSIONS = [
     'php7.2',     
 ]
 
-OS_LSB_DESCRIPTION = "Ubuntu 20.04.4 LTS"
+OS_LSB_DESCRIPTION = "Ubuntu 22.04 LTS"
 
 PHP_DEFAULT_VERSION = PHP_VERSIONS[0]
 
@@ -119,6 +121,31 @@ try:
 
     heading("Configuring MySQL")
 
+    password = "password"
+    confirm_password = "confirm_password"
+
+    while password != confirm_password:
+        password = str(getpass("Enter a password for the root user: ")).strip()
+        confirm_password = str(getpass("Repeat the root password: ")).strip()
+
+        if password != confirm_password:
+            print("Passwords don't match!")
+    
+    print("")
+    print("Run the following commands in your terminal.")
+    print(f"""
+    mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '{password}';
+    mysql> FLUSH PRIVILEGES;
+    mysql> quit;
+    """)
+    try:
+        Command.run("sudo mysql", False)
+    except:
+        print("")
+        print("** It seems like you already have set the root password.")
+        print("")
+        # Command.run("mysql -uroot -p", False)
+
     res = input("""
 Do you want to secure your MySQL installation by running `mysql_secure_installation`?
 
@@ -128,40 +155,6 @@ Do yo want want to run `mysql_secure_installation` now (Y/n): """)
 
     if 'y' == str(res or '').strip().lower():
         Command.run('sudo mysql_secure_installation', False)
-
-    msg = """
-If you frequently connect to MySQL via third party clients like Workbench and phpMyAdmin you might run 
-into `MySQL Access Denied` issues. 
-
-== NB: If already run, please select `N` to skip this part ==
-
-Do you want to fix the configuration file to allow for clients like Workbench and phpMyAdmin 
-to connect to MySQL? (Y/n):  """
-
-    yes = str(input(msg)).strip().lower() == 'y'
-
-    if yes:
-        username = str(input('MySQL Username (root): ')).strip()
-        password = str(getpass('Password: ')).strip()
-        confirm_password = str(getpass('Confirm Password: ')).strip()
-
-        while password != confirm_password:
-            print()
-            print('!! Passwords do not match. Please try again.')
-            print()
-            password = str(getpass('Password: ')).strip()
-            confirm_password = str(getpass('Confirm Password: ')).strip()
-
-        print()
-        print()
-        print(f"""
-Please enter the following commands manually in the terminal:
-mysql> ALTER USER '{username}'@'localhost' IDENTIFIED WITH mysql_native_password BY '{password}';
-mysql> FLUSH PRIVILEGES;
-mysql> quit
-            """)
-
-        Command.run('sudo mysql', True)
 
     heading('Node JS LTS')
     Command.run("curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -", False)
