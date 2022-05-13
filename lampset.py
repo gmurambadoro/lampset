@@ -123,15 +123,15 @@ try:
     confirm_password = "confirm_password"
 
     while password != confirm_password:
-        password = input("Enter a password for the root user: ")
-        confirm_password = input("Repeat the root password: ")
+        password = str(getpass("Enter a password for the root user: ")).strip()
+        confirm_password = str(getpass("Repeat the root password: ")).strip()
 
         if password != confirm_password:
             print("Passwords don't match!")
     
     print("")
     print("Run the following commands in your terminal.")
-    print("""
+    print(f"""
     mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '{password}';
     mysql> FLUSH PRIVILEGES;
     mysql> quit;
