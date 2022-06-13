@@ -1,4 +1,4 @@
-# Linux, Apache, PHP & MySQL Setup (lampset)
+# Linux, Apache, PHP & MySQL Setup (lampset) *DEPRECATED*
 
 <br />
 
@@ -54,7 +54,7 @@ To set up the LAMP server simply clone this repository and execute the `lampset.
 
 ```
 $ cd /tmp/
-$ git clone https://github.com/gmurambadoro/lampset.git
+$ git clone https://github.com/gmurambadoro/lampset-virtualbox.git lampset
 $ cd lampset/
 $ python3 lampset.py
 ```
