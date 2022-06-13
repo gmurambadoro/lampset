@@ -2,6 +2,8 @@
 
 **lampset** is a LAMP stack provisioning script specifically targeting Ubuntu-based distributions, for example **Linux Mint**, **Ubuntu Server** and **Ubuntu Server on VirtualBox**.
 
+**IMPORTANT NOTICE:** This repository will no longer receive any updates. I am now migrating to using Docker container images for web development (finally).
+
 ## Features
 
 - (**L**)inux: Ubuntu-based distribution e.g. Linux Mint, Ubuntu Server and Ubuntu Server on VirtualBox
