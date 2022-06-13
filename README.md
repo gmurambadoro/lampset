@@ -1,8 +1,12 @@
 # Linux, Apache, PHP & MySQL Setup (lampset)
 
-**lampset** is a LAMP stack provisioning script specifically targeting Ubuntu-based distributions, for example **Linux Mint**, **Ubuntu Server** and **Ubuntu Server on VirtualBox**.
+<br />
 
 **IMPORTANT NOTICE:** This repository will no longer receive any updates. I am now migrating to using Docker container images for web development (finally).
+
+<br />
+
+**lampset** is a LAMP stack provisioning script specifically targeting Ubuntu-based distributions, for example **Linux Mint**, **Ubuntu Server** and **Ubuntu Server on VirtualBox**.
 
 ## Features
 
