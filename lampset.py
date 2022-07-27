@@ -3,8 +3,6 @@ import sys
 from getpass import getpass
 import subprocess
 
-from click import command
-
 from command import Command
 
 PHP_VERSIONS = [
@@ -14,7 +12,7 @@ PHP_VERSIONS = [
     'php7.2',     
 ]
 
-OS_LSB_DESCRIPTION = "Ubuntu 22.04 LTS"
+OS_LSB_DESCRIPTION = "Debian GNU/Linux 11 (bullseye)"
 
 PHP_DEFAULT_VERSION = PHP_VERSIONS[0]
 
@@ -48,16 +46,49 @@ try:
 
     heading("Registering PPAs")
 
-    # register required PPAs
-    for ppa in ['ppa:ondrej/apache2', 'ppa:ondrej/php']:
-        Command.run(f'sudo add-apt-repository {ppa} -y', False)
+    add_php_repo = """
+    if [ "$(whoami)" != "root" ]; then
+        SUDO=sudo
+    fi
 
-    Command.run('sudo apt update -y', False)
+    ${SUDO} apt-get update \
+    && ${SUDO} apt-get -y install apt-transport-https lsb-release ca-certificates curl \
+    && ${SUDO} curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg \
+    && ${SUDO} sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' \
+    && ${SUDO} apt-get update"""
+
+    Command.run(add_php_repo, False)
+
+    add_apache2_repo = """
+    if [ "$(whoami)" != "root" ]; then
+        SUDO=sudo
+    fi
+
+    ${SUDO} apt-get update \
+    && ${SUDO} apt-get -y install apt-transport-https lsb-release ca-certificates curl \
+    && ${SUDO} curl -sSLo /usr/share/keyrings/deb.sury.org-apache2.gpg https://packages.sury.org/apache2/apt.gpg \
+    && ${SUDO} sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-apache2.gpg] https://packages.sury.org/apache2/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/apache2.list' \
+    && ${SUDO} apt-get update
+    
+    """
+
+    Command.run(add_apache2_repo, False)
 
     heading("Installing Apache and MySQL")
 
     Command.run('sudo apt install -y curl apache2 libapache2-mod-fcgid zip unzip', False)
-    Command.run('sudo apt install -y mysql-server mysql-client', False)
+
+    add_mysql_server = """
+    sudo apt install -y wget \
+        && wget https://dev.mysql.com/get/mysql-apt-config_0.8.22-1_all.deb \
+        && sudo apt install -y ./mysql-apt-config_0.8.22-1_all.deb \
+        && rm mysql-apt-config_0.8.22-1_all.deb \
+        && sudo apt update \
+        && sudo apt install -y mysql-server  mysql-client \
+        && sudo service mysql status 
+    """
+
+    Command.run(add_mysql_server, False)
 
     heading("Installing Multiple PHP Versions")
 
@@ -159,8 +190,8 @@ Do yo want want to run `mysql_secure_installation` now (Y/n): """)
     heading('Node JS LTS')
     Command.run("curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -", False)
     Command.run("sudo apt-get install -y nodejs", False)
-    Command.run("sudo npm install -g npm@latest", False)
-    Command.run("sudo npm install -g maildev", False) # https://www.npmjs.com/package/maildev
+    Command.run("sudo npm install --location=global npm@latest", False)
+    Command.run("sudo npm install --location=global maildev", False) # https://www.npmjs.com/package/maildev
 
 
     heading("PHP Versions")
