@@ -1,19 +1,16 @@
-# Linux, Apache, PHP & MySQL Setup (lampset) *DEPRECATED*
+# Linux, Apache, PHP & MySQL Setup (lampset)
 
 <br />
 
-**IMPORTANT NOTICE:** This repository will no longer receive any updates. I am now migrating to using Docker container images for web development (finally).
-
-<br />
-
-**lampset** is a LAMP stack provisioning script specifically targeting Ubuntu-based distributions, for example **Linux Mint**, **Ubuntu Server** and **Ubuntu Server on VirtualBox**.
+**lampset** is a LAMP stack provisioning script specifically targeting Debian (Server or Desktop). The recommended way 
+of installing this is on a VirtualBox virtual machine.
 
 ## Features
 
-- (**L**)inux: Ubuntu-based distribution e.g. Linux Mint, Ubuntu Server and Ubuntu Server on VirtualBox
+- (**L**)inux: Debian Server on VirtualBox
 - (**A**)pache2 - latest version
 - (**M**)ySQL version 8
-- (**P**)HP versions **php7**, **php8.0** and **php8.1**.
+- (**P**)HP versions **php7.2**, **php7.4**, **php8.0** and **php8.1**.
 	- PHP-FPM allows you to run multiple sites running under different PHP versions at the same time.
 
 For general-purpose web development support, the following packages are also installed:
@@ -29,12 +26,12 @@ The **lampset** binary is the bringing together of all of the knowledge acquired
 
 ## Supported Platforms
 
-- Ubuntu-based Linux operating systems e.g. [Linux Mint](https://linuxmint.com) and [Ubuntu Server](https://ubuntu.com/download/server). 
-- All other operating systems (e.g. Mac, Windows) are supported via [VirtualBox](https://virtualbox.org). The only requirement is that the guest operating system needs to be [Ubuntu Server](https://ubuntu.com/download/server).
+- Debian-based operating system [https://debian.org](https://debian.org). 
+- All other operating systems (e.g. Mac, Windows) are supported via [VirtualBox](https://virtualbox.org). The only requirement is that the guest operating system needs to be [Debian Server](https://debian.org).
 
 ## How it works
 
-**lampset** is an encapsulation of various `bash` commands and concepts that are applied when setting up a LAMP stack on Ubuntu Server or its variants.
+**lampset** is an encapsulation of various `bash` commands and concepts that are applied when setting up a LAMP stack on Debian Server.
 
 The following are more or less the steps that are taken during the provisioning process. Some of the steps require human intervention, so you need to stick around for the duration of the setup.
 
