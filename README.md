@@ -51,9 +51,9 @@ To set up the LAMP server simply clone this repository and execute the `lampset.
 
 ```
 $ cd /tmp/
-$ git clone https://github.com/gmurambadoro/lampset-virtualbox.git lampset
+$ git clone https://github.com/gmurambadoro/lampset.git lampset
 $ cd lampset/
-$ python3 lampset.py
+$ python3 lampset.py --php 8.1 --php 7.4 --php 7.2
 ```
 
 ## Post Installation
