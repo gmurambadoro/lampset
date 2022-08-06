@@ -2,7 +2,7 @@ import os
 import subprocess
 
 
-class Command:
+class XCommand:
     """Simple class to represent a shell commands"""
 
     def __init__(self, name: str):
@@ -39,7 +39,7 @@ class Command:
 
     @classmethod
     def run(cls, command: str, suppress_error: False) -> int:
-        _command = Command(command)
+        _command = XCommand(command)
         return _command.exec(suppress_error=suppress_error)
 
 
