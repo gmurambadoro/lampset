@@ -73,7 +73,7 @@ def lampset(php: list = None):
 
 
 def is_raspberry_pi() -> bool:
-    return "raspberry" in get_os_release().lower()
+    return "Raspbian".lower() in get_os_release().lower()
 
 
 def get_os_release() -> str:
