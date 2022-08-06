@@ -108,12 +108,11 @@ def add_package_repositories():
         if [ "$(whoami)" != "root" ]; then
             SUDO=sudo
         fi
-
         ${SUDO} apt-get update \
         && ${SUDO} apt-get -y install apt-transport-https lsb-release ca-certificates curl \
         && ${SUDO} curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg \
-        && ${SUDO} sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ 
-        $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'"""
+        && ${SUDO} sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' \
+        && ${SUDO} apt-get update"""
 
     XCommand.run(add_php_repo, False)
 
@@ -121,13 +120,12 @@ def add_package_repositories():
         if [ "$(whoami)" != "root" ]; then
             SUDO=sudo
         fi
-
         ${SUDO} apt-get update \
         && ${SUDO} apt-get -y install apt-transport-https lsb-release ca-certificates curl \
         && ${SUDO} curl -sSLo /usr/share/keyrings/deb.sury.org-apache2.gpg https://packages.sury.org/apache2/apt.gpg \
-        && ${SUDO} sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-apache2.gpg] https://packages.sury.org/apache2/ 
-        $(lsb_release -sc) main" > /etc/apt/sources.list.d/apache2.list' \
+        && ${SUDO} sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-apache2.gpg] https://packages.sury.org/apache2/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/apache2.list' \
         && ${SUDO} apt-get update
+
         """
 
     XCommand.run(add_apache2_repo, False)
