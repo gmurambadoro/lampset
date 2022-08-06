@@ -246,7 +246,7 @@ def configure_mariadb():
     except RuntimeError as e:
         print(e)
 
-    XCommand.run("sudo mysql_secure_installation", False)
+    # XCommand.run("sudo mysql_secure_installation", False)
 
 
 def install_nodejs_and_packages():
