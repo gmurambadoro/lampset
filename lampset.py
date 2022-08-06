@@ -225,11 +225,11 @@ def configure_mariadb():
     confirm_password = "confirm_password"
 
     while password != confirm_password:
-        password = str(getpass("Enter a password for the root user: ")).strip()
-        confirm_password = str(getpass("Repeat the root password: ")).strip()
+        password = str(getpass("Enter a password for the admin user: ")).strip()
+        confirm_password = str(getpass("Repeat the admin password: ")).strip()
 
         if password != confirm_password:
-            print("Passwords don't match!")
+            print("** Passwords don't match!")
 
         if not len(password):
             confirm_password = uuid.uuid4()  # generate a random confirm password so that it won't match with password
