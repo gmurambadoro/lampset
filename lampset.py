@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import subprocess
 import sys
+import uuid
 from getpass import getpass
 
 import click
@@ -13,8 +14,6 @@ PHP_VERSIONS = [
     'php7.4',
     'php7.2',
 ]
-
-DEFAULT_PHP_VERSION = PHP_VERSIONS[0]
 
 OS_RELEASES = ["Debian GNU/Linux 11 (bullseye)", "Raspbian GNU/Linux 11 (bullseye)"]
 
@@ -164,7 +163,7 @@ def install_php(php_versions: list):
     section("Configuring Default PHP Version for Apache")
 
     # set default apache php to latest php version
-    XCommand.run('sudo a2enmod ' + DEFAULT_PHP_VERSION, True)
+    XCommand.run('sudo a2enmod ' + php_versions[0], True)
     XCommand.run('sudo systemctl restart apache2', False)
 
     section('PHP FPM')
@@ -232,10 +231,12 @@ def configure_mariadb():
         if password != confirm_password:
             print("Passwords don't match!")
 
+        if not len(password):
+            confirm_password = uuid.uuid4()  # generate a random confirm password so that it won't match with password
+
     print("")
     print("Run the following commands in your terminal.")
     print(f"""
-        mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '{password}';
         mysql> GRANT ALL ON *.* TO 'admin'@'localhost' IDENTIFIED BY '{password}' WITH GRANT OPTION;
         mysql> FLUSH PRIVILEGES;
         mysql> quit;
