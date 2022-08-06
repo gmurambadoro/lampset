@@ -54,7 +54,8 @@ def lampset(php: list = None):
 
     install_composer()
 
-    install_symfony()
+    if not is_raspberry_pi():
+        install_symfony()
 
     install_vhost_utility()
 
@@ -71,6 +72,15 @@ def lampset(php: list = None):
     print()
 
 
+def is_raspberry_pi() -> bool:
+    return "raspberry" in get_os_release().lower()
+
+
+def get_os_release() -> str:
+    result = subprocess.run(['lsb_release', '-d'], stdout=subprocess.PIPE)
+    return result.stdout.decode(encoding='utf-8').strip().replace("Description:", "").strip()
+
+
 def section(title: str) -> None:
     print()
     print(f"== {title} ==".upper())
@@ -85,10 +95,9 @@ def run_platform_check():
 
         sys.exit(1)
 
-    result = subprocess.run(['lsb_release', '-d'], stdout=subprocess.PIPE)
-    os_release = result.stdout.decode(encoding='utf-8').strip().replace("Description:", "").strip()
+    os_release = get_os_release()
 
-    if os_release not in OS_RELEASES:
+    if get_os_release() not in OS_RELEASES:
         print(f"E: Unsupported Platform.\nExpecting any of {OS_RELEASES} but found \"{os_release}\"")
         sys.exit(1)
 
@@ -272,7 +281,10 @@ def display_package_versions():
     XCommand.run('apache2 --version', True)
     XCommand.run('mysql --version', True)
     XCommand.run('composer --version', True)
-    XCommand.run('symfony -V', True)
+
+    if not is_raspberry_pi():
+        XCommand.run('symfony -V', True)
+
     XCommand.run('node -v', True)
     XCommand.run('npm -v', True)
 
