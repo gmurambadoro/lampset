@@ -62,7 +62,7 @@ def lampset(php: list = None):
 
     install_nodejs_and_packages()
 
-    display_package_versions()
+    display_package_versions(php_versions=php_versions)
 
     print()
     section("***")
@@ -242,21 +242,9 @@ def configure_mariadb():
         mysql> quit;
         """)
     try:
-        XCommand.run("sudo mysql", False)
-    except RuntimeError:
-        print("")
-        print("** It seems like you already have set the root password.")
-        print("")
-
-    res = input("""
-    Do you want to secure your MySQL installation by running `mysql_secure_installation`?
-
-    == NB: If already run, please select `N` to skip this part ==
-
-    Do yo want want to run `mysql_secure_installation` now (Y/n): """)
-
-    if 'y' == str(res or '').strip().lower():
-        XCommand.run('sudo mysql_secure_installation', False)
+        XCommand.run("sudo mysql_secure_installation", False)
+    except RuntimeError as e:
+        print(e)
 
 
 def install_nodejs_and_packages():
@@ -267,10 +255,10 @@ def install_nodejs_and_packages():
     XCommand.run("sudo npm install --location=global maildev", False)  # https://www.npmjs.com/package/maildev
 
 
-def display_package_versions():
+def display_package_versions(php_versions: list):
     section("PHP Versions")
 
-    for ver in PHP_VERSIONS:
+    for ver in (php_versions or []):
         XCommand.run('%s --version' % ver, False)
 
     section("Default PHP Version")
