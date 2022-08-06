@@ -14,8 +14,6 @@ PHP_VERSIONS = [
     'php7.2',
 ]
 
-OS_LSB_DESCRIPTION = "Debian GNU/Linux 11 (bullseye)"
-
 DEFAULT_PHP_VERSION = PHP_VERSIONS[0]
 
 OS_RELEASES = ["Debian GNU/Linux 11 (bullseye)", "Raspbian GNU/Linux 11 (bullseye)"]
@@ -90,8 +88,8 @@ def run_platform_check():
     result = subprocess.run(['lsb_release', '-d'], stdout=subprocess.PIPE)
     os_release = result.stdout.decode(encoding='utf-8').strip().replace("Description:", "").strip()
 
-    if os_release not in [OS_RELEASES]:
-        print(f"E: Unsupported Platform.\nExpecting any of `{OS_RELEASES}` but found `{os_release}`")
+    if os_release not in OS_RELEASES:
+        print(f"E: Unsupported Platform.\nExpecting any of {OS_RELEASES} but found \"{os_release}\"")
         sys.exit(1)
 
 
