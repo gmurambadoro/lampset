@@ -10,9 +10,6 @@ from xcommand import XCommand
 
 PHP_VERSIONS = [
     'php8.1',
-    'php8.0',
-    'php7.4',
-    'php7.2',
 ]
 
 OS_RELEASES = ["Debian GNU/Linux 11 (bullseye)", "Raspbian GNU/Linux 11 (bullseye)"]
@@ -180,10 +177,9 @@ def fix_virtualbox_permissions():
 
     # add the current user to the www-data group
     XCommand.run('sudo usermod -a -G www-data $USER', False)
-    XCommand.run('sudo usermod -a -G vboxsf $USER', True)
 
     # allow apache2 to have read/write access to virtualbox shared folders
-    XCommand.run('sudo usermod -a -G vboxsf www-data', True)
+    XCommand.run('sudo usermod -a -G www-data', True)
 
     print("[OK] Permissions were setup successfully.")
 
@@ -225,8 +221,8 @@ def configure_mariadb():
     confirm_password = "confirm_password"
 
     while password != confirm_password:
-        password = str(getpass("Enter a password for the admin user: ")).strip()
-        confirm_password = str(getpass("Repeat the admin password: ")).strip()
+        password = str(getpass("Enter a password for the app_user user: ")).strip()
+        confirm_password = str(getpass("Repeat the app_user password: ")).strip()
 
         if password != confirm_password:
             print("** Passwords don't match!")
@@ -237,7 +233,7 @@ def configure_mariadb():
     print("")
     print("Run the following commands in your terminal.")
     print(f"""
-        mysql> GRANT ALL ON *.* TO 'admin'@'localhost' IDENTIFIED BY '{password}' WITH GRANT OPTION;
+        mysql> GRANT ALL ON *.* TO 'app_user'@'localhost' IDENTIFIED BY '{password}' WITH GRANT OPTION;
         mysql> FLUSH PRIVILEGES;
         mysql> quit;
         """)
@@ -251,10 +247,9 @@ def configure_mariadb():
 
 def install_nodejs_and_packages():
     section('Node JS LTS')
-    XCommand.run("curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -", False)
+    XCommand.run("curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -", False)
     XCommand.run("sudo apt-get install -y nodejs", False)
     XCommand.run("sudo npm install --location=global npm@latest", False)
-    XCommand.run("sudo npm install --location=global maildev", False)  # https://www.npmjs.com/package/maildev
 
 
 def display_package_versions(php_versions: list):
