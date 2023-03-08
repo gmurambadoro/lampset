@@ -9,6 +9,7 @@ import click
 from xcommand import XCommand
 
 PHP_VERSIONS = [
+    'php8.2',
     'php8.1',
 ]
 
@@ -56,8 +57,6 @@ def lampset(php: list = None):
     install_vhost_utility()
 
     configure_mariadb()
-
-    install_nodejs_and_packages()
 
     display_package_versions(php_versions=php_versions)
 
@@ -221,8 +220,8 @@ def configure_mariadb():
     confirm_password = "confirm_password"
 
     while password != confirm_password:
-        password = str(getpass("Enter a password for the app_user user: ")).strip()
-        confirm_password = str(getpass("Repeat the app_user password: ")).strip()
+        password = str(getpass("Enter a password for the db_user user: ")).strip()
+        confirm_password = str(getpass("Repeat the db_user password: ")).strip()
 
         if password != confirm_password:
             print("** Passwords don't match!")
@@ -233,7 +232,7 @@ def configure_mariadb():
     print("")
     print("Run the following commands in your terminal.")
     print(f"""
-        mysql> GRANT ALL ON *.* TO 'app_user'@'localhost' IDENTIFIED BY '{password}' WITH GRANT OPTION;
+        mysql> GRANT ALL ON *.* TO 'db_user'@'localhost' IDENTIFIED BY '{password}' WITH GRANT OPTION;
         mysql> FLUSH PRIVILEGES;
         mysql> quit;
         """)
@@ -243,13 +242,6 @@ def configure_mariadb():
         print(e)
 
     # XCommand.run("sudo mysql_secure_installation", False)
-
-
-def install_nodejs_and_packages():
-    section('Node JS LTS')
-    XCommand.run("curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -", False)
-    XCommand.run("sudo apt-get install -y nodejs", False)
-    XCommand.run("sudo npm install --location=global npm@latest", False)
 
 
 def display_package_versions(php_versions: list):
@@ -270,9 +262,6 @@ def display_package_versions(php_versions: list):
 
     if not is_raspberry_pi():
         XCommand.run('symfony -V', True)
-
-    XCommand.run('node -v', True)
-    XCommand.run('npm -v', True)
 
 
 if __name__ == "__main__":
